@@ -31,7 +31,7 @@ def parse_question(question):
       "direct_answer": "在5G網路架構中，RU、CU和DU是組成無線接取網路(RAN)的三個主要元件"
     }}
     使用者問題：「{question}」
-    現在時間 : 2025-07-01 15:58:07
+    現在時間 : 2025-07-01 16:02:07
     請只輸出 JSON，你輸出的結果要讓我用json.loads成功轉成dictionary。
     """
 

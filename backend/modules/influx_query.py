@@ -77,7 +77,7 @@ client = InfluxDBClient(
 
 
 def query_oss_data(tables, time_range=None):
-
+    print('in influx_query ', time_range)
 
     result = {}
     table_name_in_db = {"UE_record": "ueList_test", "fault management": "fm_test"}
@@ -87,7 +87,7 @@ def query_oss_data(tables, time_range=None):
     for dt in time_range:
         print(datetime.strptime(dt, format_string))
         print(datetime.strptime(dt, format_string).timestamp())
-        dt = int(datetime.strptime(dt, format_string).timestamp()*1000)
+        dt = int(datetime.strptime(dt, format_string).timestamp()*1000000000)
         new_t_r.append(dt)
     
     print('+++++new_d_r', new_t_r)
