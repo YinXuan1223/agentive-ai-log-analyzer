@@ -63,6 +63,7 @@
 # # client.close()
 
 from influxdb import InfluxDBClient
+from datetime import datetime
 
 client = InfluxDBClient(
     host="140.113.144.121",
@@ -72,13 +73,31 @@ client = InfluxDBClient(
     database="wisdon-cell"
 )
 
+
+
+
 def query_oss_data(tables, time_range=None):
+
 
     result = {}
     table_name_in_db = {"UE_record": "ueList_test", "fault management": "fm_test"}
 
+    format_string = "%Y-%m-%d %H:%M:%S"
+    new_t_r= []
+    for dt in time_range:
+        print(datetime.strptime(dt, format_string))
+        print(datetime.strptime(dt, format_string).timestamp())
+        dt = int(datetime.strptime(dt, format_string).timestamp()*1000)
+        new_t_r.append(dt)
+    
+    print('+++++new_d_r', new_t_r)
+
     for table in tables:
-        query = f'SELECT * FROM {table_name_in_db[table]} limit 5'
+        query = f'SELECT * FROM "{table_name_in_db[table]}" WHERE time >= {new_t_r[0]} AND time <= {new_t_r[1]} '
+        # query = """
+        # SELECT * FROM "ueList_test"
+        # WHERE timestamp >= '2025-07-01T15:58:00Z' AND timestamp <= '2025-07-01T16:00:00Z'
+        # """
         output = client.query(query)
 
         result[table] = []
